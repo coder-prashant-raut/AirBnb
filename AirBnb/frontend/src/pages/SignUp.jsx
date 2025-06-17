@@ -1,13 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { TiArrowLeftThick } from "react-icons/ti";
+
 function SignUp() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   return (
     <div className="w-[100vw] h-[100vh] flex items-center justify-center">
+          <div className='w-[50px] h-[50px] cursor-pointer absolute top-10 left-10 flex items-center justify-center bg-amber-200 rounded-full' onClick={()=> navigate("/")}>
+                    <TiArrowLeftThick className='cursor-pointer w-[70px] h-[40px]  '  />
+                </div>
       <form
         action=""
         className="w-max-[900px] w-[90%] h-[600px] flex items-center justify-center  flex-col  gap-[10px]"

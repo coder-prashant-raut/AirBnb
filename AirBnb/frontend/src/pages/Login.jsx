@@ -8,8 +8,8 @@ function Login() {
         const navigate = useNavigate()
   return (
        <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
-        <div className='w-[50px] h-[50px] cursor-pointer absolute top-10 left-10 rounded-xl  flex items-center justify-center '>
-            <TiArrowLeftThick className='cursor-pointer w-[40px] h-[40px]  ' />
+        <div className='w-[50px] h-[50px] cursor-pointer absolute top-10 left-10 flex items-center justify-center bg-amber-200 rounded-full' onClick={()=> navigate("/")}>
+            <TiArrowLeftThick className='cursor-pointer w-[70px] h-[40px]  '  />
         </div>
             <form action="" className='w-max-[900px] w-[90%] h-[600px] flex items-center justify-center  flex-col  gap-[10px]'>
                 <h1 className='text-2xl text-black w-full  flex justify-center'>Welcome Back to AirBnb</h1>
