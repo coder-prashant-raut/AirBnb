@@ -1,20 +1,48 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { TiArrowLeftThick } from "react-icons/ti";
+import {AuthDataContext} from "../context/AuthContext.jsx";
+import axios from "axios";
+
 
 function SignUp() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  let {serverUrl} = useContext(AuthDataContext);
+  const[name, setName] = useState("");
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
+  const handleSignUp = async (e) => {
+    try {
+      e.preventDefault();
+
+      let result = await axios.post(serverUrl + "/api/auth/signup", {
+        name,
+        email,
+        password,
+      }, {withCredentials:true});
+
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-[100vw] h-[100vh] flex items-center justify-center">
-          <div className='w-[50px] h-[50px] cursor-pointer absolute top-10 left-10 flex items-center justify-center bg-amber-200 rounded-full' onClick={()=> navigate("/")}>
-                    <TiArrowLeftThick className='cursor-pointer w-[70px] h-[40px]  '  />
-                </div>
+      <div
+        className="w-[50px] h-[50px] cursor-pointer absolute top-10 left-10 flex items-center justify-center bg-amber-200 rounded-full"
+        onClick={() => navigate("/")}
+      >
+        <TiArrowLeftThick className="cursor-pointer w-[70px] h-[40px]  " />
+      </div>
       <form
         action=""
-        className="w-max-[900px] w-[90%] h-[600px] flex items-center justify-center  flex-col  gap-[10px]"
+        className="max-w-[900px] w-[90%] h-[600px] flex items-center justify-center  flex-col  gap-[10px]"
+        onSubmit={handleSignUp}
       >
         <h1 className="text-2xl text-black w-full  flex justify-center">
           Welcome To AirBnb
@@ -27,6 +55,9 @@ function SignUp() {
             type="text"
             id="name"
             className="w-[90%] h-[40px] border-[2px] border-[#555656] rounded-sm px-3 "
+            required
+            onChange={(e) => setName(e.target.value)}
+            value={name}
           />
         </div>
         <div className="flex flex-col justify-between w-full max-w-xl gap-[10px]">
@@ -37,6 +68,9 @@ function SignUp() {
             type="text"
             id="email"
             className="w-[90%] h-[40px] border-[2px] border-[#555656] rounded-sm px-3 "
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
         <div className="flex flex-col justify-between w-full max-w-xl gap-[10px] relative">
@@ -47,6 +81,9 @@ function SignUp() {
             type={show ? "text" : "password"}
             id="password"
             className="w-[90%] h-[40px] border-[2px] border-[#555656] rounded-sm px-3 "
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
           {!show && (
             <FaRegEyeSlash
