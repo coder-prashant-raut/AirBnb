@@ -54,13 +54,16 @@ export const login = async (req,res) => {
     return res.status(500).json({message: `login error ${error}`})
   }
 }
- 
+ export const logOut = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,        // Set to true in production (HTTPS)
+      sameSite: "None",    // "None" if using cross-origin requests (e.g. frontend at :5173, backend at :5000)
+    });
 
-export const logOut = async (req, res) =>{
-    try{
-        res.clearCookie("token")
-        return res.status(200).json({message:"Logout Successfully"})
-    }catch (error){
-        return res.status(500).json({message: `login error ${error}`})
-    }
+    return res.status(200).json({ message: "Logout Successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: `Logout error: ${error.message}` });
+  }
 }

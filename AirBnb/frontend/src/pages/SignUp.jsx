@@ -6,7 +6,6 @@ import { TiArrowLeftThick } from "react-icons/ti";
 import {AuthDataContext} from "../context/AuthContext.jsx";
 import axios from "axios";
 
-
 function SignUp() {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
