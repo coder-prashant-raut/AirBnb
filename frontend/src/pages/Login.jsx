@@ -4,6 +4,8 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { AuthDataContext } from "../context/AuthContext.jsx";
+import { userDataContext } from "../context/UserContext.jsx";
+
 import axios from 'axios'
 
 function Login() {
@@ -12,6 +14,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let {serverUrl} = useContext(AuthDataContext)
+  const { userData, setUserData } = useContext(userDataContext);
 
   const handleLogin = async (e) => {
     try {
@@ -24,7 +27,9 @@ function Login() {
           password,
         },
         { withCredentials: true }
-      );
+ );
+      setUserData(result.data)
+      navigate("/")
 
       console.log(result);
     } catch (error) {

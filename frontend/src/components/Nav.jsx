@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useState,  } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/react.svg";
@@ -13,13 +14,13 @@ import { FaTreeCity } from "react-icons/fa6";
 import { BiBuildingHouse } from "react-icons/bi";
 import axios from "axios";
 import { AuthDataContext } from "../context/AuthContext.jsx";
+import { userDataContext } from "../context/UserContext.jsx";
 
 function Nav() {
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate();
-
-    let {serverUrl} = useContext(AuthDataContext)
-
+  let {serverUrl} = useContext(AuthDataContext)
+  const { userData, setUserData } = useContext(userDataContext);
  
 const handleLogout = async () => {
   try {
@@ -30,6 +31,9 @@ const handleLogout = async () => {
       {},
       { withCredentials: true }
     );
+
+    setUserData(null)
+
     
     console.log(result.data);
   } catch (error) {
@@ -84,10 +88,13 @@ const handleLogout = async () => {
             <span>
               <RxHamburgerMenu />
             </span>
-            <span>
+            {userData == null &&<span>
               {" "}
               <CgProfile />
-            </span>
+            </span>}
+            { userData!= null && <span className="w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center">
+           {userData?.user?.name?.slice(0, 1).toUpperCase() || "" }
+            </span>}
           </button>
 
           {showPopUp && (

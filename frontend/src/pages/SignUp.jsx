@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { TiArrowLeftThick } from "react-icons/ti";
 import {AuthDataContext} from "../context/AuthContext.jsx";
 import axios from "axios";
+import { userDataContext } from "../context/UserContext.jsx";
 
 function SignUp() {
   const [show, setShow] = useState(false);
@@ -13,6 +14,7 @@ function SignUp() {
   const[name, setName] = useState("");
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
+  const { userData, setUserData } = useContext(userDataContext);
 
   const handleSignUp = async (e) => {
     try {
@@ -23,6 +25,9 @@ function SignUp() {
         email,
         password,
       }, {withCredentials:true});
+
+      setUserData(result.data)
+      navigate("/")
 
       console.log(result);
     } catch (error) {
